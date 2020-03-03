@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+	"name": "Fast Tab",
+  "version": "1.0.0",
+  "description": "bookmarks tab",
+
+  "chrome_url_overrides": {
+    "newtab": "main.html"
+  },
+
+  "icons": {
+    "16": "image/icons/16.png",
+    "32": "image/icons/32.png",
+    "48": "image/icons/48.png",
+    "128": "image/icons/128.png"
+  },
+
+  "browser_action": {
+		"default_title": "fast-tab"
+	},
+  
+  "background": {
+		"page": "background.html",
+		"persistent": false
+	},
+   
+  "permissions": [
+    "tabs",
+    "bookmarks",
+    "storage",
+    "chrome://favicon/",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_security_policy":"script-src 'self' 'unsafe-eval'; object-src 'self';"
+}

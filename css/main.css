@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #6495ED;
+}
+
+#app {
+  height: 100%;
+}
+
+.header {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tools {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.tools img{
+  height: 36px;
+  cursor: pointer;
+}
+
+.main {
+  margin-top: 30vh;
+  display: flex;
+  margin-left: 10vw;
+  flex-direction: column;
+}
+
+.paths {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.paths .path {
+  color: #e0e0e0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.bookmarks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 80vw;
+}
+
+.bookmark {
+  display: flex;
+  height: 30px;
+  width: 20%;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.bookmark:hover {
+  background-color: #bebebe;
+}
+
+.bookmark .icon{
+  height: 30px;
+  width: 30px;
+}
+
+.bookmark .title {
+  margin: 0;
+  line-height: 30px;
+  font-size: 15px;
+  padding-left: 5px;
+  padding-right: 20px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color: #fff;
+}
