@@ -11,9 +11,12 @@
   <div id="app">
     <div class="header">
       <div class="tools">
-        <a @click="goChromeLink('chrome://bookmarks')">
+        <div @click="goLink('chrome://bookmarks')">
           <img src="/image/manage.png" />
-        </a>
+        </div>
+        <div @click="goLink('https://github.com/Houserqu/fast-tab')">
+          <img src="/image/github.png" />
+        </div>
       </div>
     </div>
     <div class="main">
@@ -24,7 +27,6 @@
       </div>
       <div class="bookmarks">
         <div class="bookmark" v-for="bookmark in visibleBookmarks" @click="handleBookmark(bookmark)" data-bookmark="bookmark">
-          <!-- <div class="icon" :style="'background-image: -webkit-image-set(url(chrome://favicon/' + bookmark.url + ') 1x, url(chrome://favicon/' + bookmark.url + ') 2x);'"></div> -->
           <img class="icon" :src="'chrome://favicon/' + bookmark.url" v-if="!!bookmark.url" />
           <img class="icon" src="/image/folder.png" v-else/>
           <p class="title">{{bookmark.title}}</p>

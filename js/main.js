@@ -36,7 +36,7 @@ new Vue({
     handleBookmark(bookmark) {
       // 书签
       if(bookmark.url) {
-        location.href = bookmark.url
+        this.goLink(bookmark.url)
       } else { // 文件夹
         this.paths = [...this.paths, { title: bookmark.title, id: bookmark.id }]
         this.parentId = bookmark.id
@@ -51,7 +51,7 @@ new Vue({
       }
 
     },
-    goChromeLink(url) {
+    goLink(url) {
       chrome.tabs.getCurrent( function( tab ) {
         chrome.tabs.update( tab.id, { url });
     });

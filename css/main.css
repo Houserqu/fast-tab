@@ -30,6 +30,10 @@ body {
 
 .tools img{
   height: 36px;
+}
+
+.tools > div {
+  margin-left: 10px;
   cursor: pointer;
 }
 
