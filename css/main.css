@@ -90,4 +90,5 @@ body {
   text-overflow:ellipsis;
   white-space:nowrap;
   color: #fff;
+  width: 80%;
 }
