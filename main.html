@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="css/main.css">
   <title>Fast Tab</title>
 </head>
+
 <body>
   <div id="app">
     <div class="header">
@@ -26,10 +28,11 @@
         </div>
       </div>
       <div class="bookmarks">
-        <div class="bookmark" v-for="bookmark in visibleBookmarks" @click="handleBookmark(bookmark)" data-bookmark="bookmark">
+        <div class="bookmark" v-for="bookmark in visibleBookmarks" @click="handleBookmark(bookmark)"
+          data-bookmark="bookmark">
           <img class="icon" :src="'chrome://favicon/' + bookmark.url" v-if="!!bookmark.url" />
-          <img class="icon" src="/image/folder.png" v-else/>
-          <p class="title">{{bookmark.title}}</p>
+          <img class="icon" src="/image/folder.png" v-else />
+          <p class="title">{{bookmark.ext.title}}</p>
         </div>
       </div>
     </div>
@@ -37,4 +40,5 @@
 </body>
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+
 </html>

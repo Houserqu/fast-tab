@@ -32,13 +32,22 @@ body {
   height: 36px;
 }
 
+.tools img:hover {
+  animation: turn 0.5s;
+}
+
+@keyframes turn {
+  0% { transform: none; }
+  100% { transform: rotate(1turn); }
+}
+
 .tools > div {
   margin-left: 10px;
   cursor: pointer;
 }
 
 .main {
-  margin-top: 30vh;
+  margin-top: 25vh;
   display: flex;
   margin-left: 10vw;
   flex-direction: column;
