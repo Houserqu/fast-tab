@@ -22,17 +22,27 @@
       </div>
     </div>
     <div class="main">
-      <div class="paths">
-        <div class="path" v-for="path in paths" @click="pathBack(path)">
-          {{path.title}}&nbsp;/&nbsp;
+      <div class="actions">
+        <div class="paths">
+          <div class="path" v-for="path in paths" @click="pathBack(path)">
+            {{path.title}}&nbsp;/&nbsp;
+          </div>
+        </div>
+        <div class="tags">
+          <div :class="selectedTag === tag ? 'active-tag' : 'tag'" v-for="tag in tags" @click="selectTag(tag)">{{tag}}</div>
         </div>
       </div>
       <div class="bookmarks">
         <div class="bookmark" v-for="bookmark in visibleBookmarks" @click="handleBookmark(bookmark)"
           data-bookmark="bookmark">
-          <img class="icon" :src="'chrome://favicon/' + bookmark.url" v-if="!!bookmark.url" />
-          <img class="icon" src="/image/folder.png" v-else />
-          <p class="title">{{bookmark.ext.title}}</p>
+          <div class="title">
+            <img class="icon" :src="'chrome://favicon/' + bookmark.url" v-if="!!bookmark.url" />
+            <img class="icon" src="/image/folder.png" v-else />
+            <p class="title">{{bookmark.ext.title}}</p>
+          </div>
+          <div class="tags">
+            <div class="tag" v-for="tag in bookmark.ext.t ? bookmark.ext.t.split(',') : []">{{tag}}</div>
+          </div>
         </div>
       </div>
     </div>

@@ -6,19 +6,22 @@ new Vue({
       serachWord: "",
       parentId: "1",
       flattenBookmarks: [], // 处理成一维的标签数据
-      paths: [
-        { title: "*", id: "0" },
-        { title: "书签栏", id: "1" }
-      ]
+      tags: [], // 所有标签
+      selectedTag: null, // 筛选选择的标签 index
+      paths: []
     };
   },
   created: function() {
     const that = this;
     chrome.bookmarks.getTree(function(bookmarkArray) {
       that.bookmarksTree = bookmarkArray[0];
-      that.flattenBookmarks = flattenBookmarks(bookmarkArray[0]);
+
+      const flattenRes = flattenBookmarks(bookmarkArray[0]);
+      that.flattenBookmarks = flattenRes.flattenBookmarks
+      that.tags = flattenRes.tags
     });
 
+    this.resetPath()
     // 监听 esc 键，返回上一级目录
     document.onkeydown = function() {
       let key = window.event.keyCode;
@@ -31,8 +34,14 @@ new Vue({
   computed: {
     visibleBookmarks: function() {
       // 如果是搜索，则从所有标签中检索
-      if (this.serachWord) {
-        return this.flattenBookmarks;
+      // if (this.serachWord) {
+      //   return this.flattenBookmarks;
+      // }
+      
+      if (this.selectedTag) {
+        return this.flattenBookmarks.filter(v => {
+          return v.ext.t && v.ext.t.split(',').indexOf(this.selectedTag) >= 0
+        })
       }
 
       // 点击了文件夹
@@ -52,9 +61,10 @@ new Vue({
         // 文件夹
         this.paths = [
           ...this.paths,
-          { title: bookmark.title, id: bookmark.id }
+          { title: bookmark.ext.title, id: bookmark.id }
         ];
         this.parentId = bookmark.id;
+        this.selectedTag = null
       }
     },
     pathBack(path) {
@@ -63,29 +73,45 @@ new Vue({
       if (index < this.paths.length - 1) {
         this.paths = this.paths.slice(0, index + 1);
         this.parentId = path.id;
-      }
+        this.selectedTag = null
+        }
     },
     goLink(url) {
       chrome.tabs.getCurrent(function(tab) {
         chrome.tabs.update(tab.id, { url });
       });
+    },
+    selectTag(tag) {
+      if(tag === this.selectedTag) {
+        this.selectedTag = null
+      } else {
+        this.selectedTag = tag
+        this.parentId = "1"
+        this.resetPath()
+      }
+    },
+    resetPath() {
+      this.paths = [
+        { title: "*", id: "0" },
+        { title: "书签栏", id: "1" }
+      ]
     }
   }
 });
 
 function flattenBookmarks(bookmarkTree) {
   const flattenBookmarks = [];
+  const tags = []
 
   // 标题解析 协议：title?key1=value1&key2=value2
   function decode(str) {
     // 用最后一个 ？ 号分割字符串，得到 title 和拓展数据 str
-    const flags = str.match(/\?/g);
-    if (flags) {
-      const title = str.substring(0, flags.length + 1);
-      const extStr = str.substring(flags.length + 2);
+    const flagIndex = str.lastIndexOf('?');
+    if (flagIndex > 0) {
+      const title = str.substring(0, flagIndex);
+      const extStr = str.substring(flagIndex + 1);
       const exts = extStr.split("&");
       const ext = { title };
-
       exts.forEach(v => {
         const [key, value] = v.split("=");
         ext[key] = value;
@@ -98,7 +124,17 @@ function flattenBookmarks(bookmarkTree) {
   }
 
   const flatten = function(node) {
+    // 解析 title
     const ext = decode(node.title);
+
+    // 处理标签
+    if(ext.t) {
+      const curtags = ext.t.split(',')
+      curtags.forEach(curtag => {
+        if(!tags.find(tag => tag ===curtag)) tags.push(curtag)
+      })
+    }
+    
     if (node.children) {
       for (const children of node.children) {
         flatten(children);
@@ -121,5 +157,8 @@ function flattenBookmarks(bookmarkTree) {
   };
 
   flatten(bookmarkTree);
-  return flattenBookmarks;
+  return {
+    flattenBookmarks,
+    tags
+  }
 }
