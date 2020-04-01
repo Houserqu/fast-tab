@@ -147,3 +147,22 @@ body {
   white-space:nowrap;
   color: #fff;
 }
+
+.search {
+  margin-bottom: 30px;
+}
+
+.search input {
+  outline-style: none ;
+  border: 1px solid #8cb0ef; 
+  border-radius: 3px;
+  padding: 8px 8px;
+  width: 250px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #6495ED;
+}
+
+.search input:hover {
+  border: 1px solid #fff;
+}

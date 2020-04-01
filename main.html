@@ -22,9 +22,14 @@
       </div>
     </div>
     <div class="main">
+      <div class="search">
+        <input v-model='searchWord' />
+      </div>
       <div class="actions">
         <div class="paths">
-          <div class="path" v-for="path in paths" @click="pathBack(path)">
+          <div class="path" v-if="showType === 'search'">* / 搜索</div>
+          <div class="path" v-else-if="showType === 'tag'">* / 标签</div>
+          <div v-else class="path" v-for="path in paths" @click="pathBack(path)">
             {{path.title}}&nbsp;/&nbsp;
           </div>
         </div>

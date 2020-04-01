@@ -3,7 +3,7 @@ new Vue({
   data: function() {
     return {
       bookmarksTree: [], // 书签树
-      serachWord: "",
+      searchWord: "",
       parentId: "1",
       flattenBookmarks: [], // 处理成一维的标签数据
       tags: [], // 所有标签
@@ -34,9 +34,12 @@ new Vue({
   computed: {
     visibleBookmarks: function() {
       // 如果是搜索，则从所有标签中检索
-      // if (this.serachWord) {
-      //   return this.flattenBookmarks;
-      // }
+      if (this.searchWord) {
+        return this.flattenBookmarks.filter(v => 
+          v.ext.title.toLowerCase().indexOf(this.searchWord.toLowerCase()) > -1 || 
+          v.ext.t && v.ext.t.toLowerCase().indexOf(this.searchWord.toLowerCase()) > -1 ||
+          v.url && v.url.toLowerCase().indexOf(this.searchWord.toLowerCase()) > -1);
+      }
       
       if (this.selectedTag) {
         return this.flattenBookmarks.filter(v => {
@@ -50,6 +53,15 @@ new Vue({
       }
 
       return this.flattenBookmarks;
+    },
+    showType: function () {
+      if(this.searchWord) {
+        return 'search'
+      } else if(this.selectedTag) {
+        return 'tag'
+      } else {
+        return 'path'
+      }
     }
   },
   methods: {
@@ -65,6 +77,7 @@ new Vue({
         ];
         this.parentId = bookmark.id;
         this.selectedTag = null
+        this.searchWord = ''
       }
     },
     pathBack(path) {
