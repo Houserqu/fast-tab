@@ -36,6 +36,10 @@ body {
   animation: turn 0.5s;
 }
 
+.tools .tips {
+  color: #fff;
+}
+
 @keyframes turn {
   0% { transform: none; }
   100% { transform: rotate(1turn); }
@@ -109,6 +113,7 @@ body {
 
 .bookmark {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   height: 30px;
@@ -165,4 +170,35 @@ body {
 
 .search input:hover {
   border: 1px solid #fff;
+}
+
+[tooltip]::after {
+  content: attr(tooltip);
+  z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: #2f2f2f;
+  color: #dadada;
+  top: 35px;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 30px;
+  border-radius: 5px;
+}
+
+[tooltip]::before {
+  content: '';
+  z-index: 1;
+  position: absolute;
+  display: none;
+  width:0;
+  top: 20px;
+  left: 12px;
+  border-width:8px;
+  border-style:solid;
+  border-color:transparent transparent #2f2f2f transparent; /* transparent 设置边框颜色透明 */
+}
+
+[tooltip]:hover::after,[tooltip]:hover::before{
+  display: block;
 }

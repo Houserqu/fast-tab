@@ -13,6 +13,9 @@
   <div id="app">
     <div class="header">
       <div class="tools">
+        <div class="tips">
+          格式: 标题?d=[描述]&t=[标签1],[标签2]&c=[标题颜色值]
+        </div>
         <div @click="goLink('chrome://bookmarks')">
           <img src="/image/manage.png" />
         </div>
@@ -38,12 +41,12 @@
         </div>
       </div>
       <div class="bookmarks">
-        <div class="bookmark" v-for="bookmark in visibleBookmarks" @click="handleBookmark(bookmark)"
+        <div class="bookmark" :tooltip="bookmark.ext.d" v-for="bookmark in visibleBookmarks" @click="handleBookmark(bookmark)"
           data-bookmark="bookmark">
           <div class="title">
             <img class="icon" :src="'chrome://favicon/' + bookmark.url" v-if="!!bookmark.url" />
             <img class="icon" src="/image/folder.png" v-else />
-            <p class="title">{{bookmark.ext.title}}</p>
+            <p class="title" :style="'color:'+ bookmark.ext.c">{{bookmark.ext.title}}</p>
           </div>
           <div class="tags">
             <div class="tag" v-for="tag in bookmark.ext.t ? bookmark.ext.t.split(',') : []">{{tag}}</div>
