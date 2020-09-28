@@ -22,13 +22,22 @@ new Vue({
     });
 
     this.resetPath()
-    // 监听 esc 键，返回上一级目录
     document.onkeydown = function() {
       let key = window.event.keyCode;
+      
+      // 监听 esc 键
+      if (key === 27) {
+        // 返回上一级目录
+        if(that.paths.length > 1) {
+          that.pathBack(that.paths[that.paths.length - 2]);
+        }
 
-      if (key === 27 && that.paths.length > 1) {
-        that.pathBack(that.paths[that.paths.length - 2]);
+        // 清空搜索输入
+        that.searchWord = ''
       }
+
+      // 聚焦搜索 input
+      document.getElementById('search-input').focus()
     };
   },
   computed: {

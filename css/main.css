@@ -123,10 +123,6 @@ body {
   margin-bottom: 20px;
 }
 
-.bookmark .title {
-  display: flex;
-}
-
 .bookmarks .tags {
   display: flex;
   justify-content: flex-end;
@@ -142,6 +138,8 @@ body {
 }
 
 .bookmark .title {
+  display: flex;
+  flex: 1;
   margin: 0;
   line-height: 30px;
   font-size: 15px;
@@ -159,17 +157,15 @@ body {
 
 .search input {
   outline-style: none ;
-  border: 1px solid #8cb0ef; 
+  border: none; 
   border-radius: 3px;
   padding: 8px 8px;
   width: 250px;
-  font-size: 16px;
-  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  color: transparent;
+  text-shadow:0 0 0 #fff;
   background-color: #6495ED;
-}
-
-.search input:hover {
-  border: 1px solid #fff;
 }
 
 [tooltip]::after {
