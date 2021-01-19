@@ -104,3 +104,14 @@ function bookmarkObjToString(bookmark) {
     url: bookmark.url
   }
 }
+
+/**
+ * 刷新标签页
+ */
+function reloadFastTab() {
+  chrome.tabs.query({title: 'Fast Tab'}, function(res) {
+    res.forEach(function({id}){
+      chrome.tabs.reload(id)
+    })
+  })
+}

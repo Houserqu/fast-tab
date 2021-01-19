@@ -36,9 +36,10 @@ new Vue({
     // 添加书签
     add() {
       const that = this
-      chrome.bookmarks.create(bookmarkObjToString(that.form),function(res) {}
-      );
-      this.cancel()
+      chrome.bookmarks.create(bookmarkObjToString(that.form),function(res) {
+        reloadFastTab()
+        this.cancel()
+      });
     },
     cancel() {
       window.close()
