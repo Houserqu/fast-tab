@@ -16,7 +16,8 @@
   },
 
   "browser_action": {
-		"default_title": "fast-tab"
+    "default_title": "fast-tab",
+    "default_popup": "popup.html"
 	},
   
   "background": {

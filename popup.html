@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>收藏</title>
+  <link rel="stylesheet" href="./css/element.css">
+  <style>
+    .el-row {
+      margin-bottom: 10px;
+    }
+    .action {
+      width: 100%;
+      position: fixed;
+      bottom: 5px;
+      right: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  </style>
+</head>
+
+<body style="width: 360px; min-height: 300px;">
+  <div id="app">
+    <el-row>
+      <el-input type="textarea" autosize v-model="form.title" size='small' placeholder='标题' clearable>
+      </el-input>
+    </el-row>
+
+    <el-row>
+      <el-input type="textarea" autosize v-model="form.url" size='small' placeholder='地址' clearable>
+      </el-input>
+    </el-row>
+
+    <el-row :gutter="10">
+      <el-col :span="12">
+        <el-cascader
+          v-model="form.parentId"
+          size='small'
+          :options="folderTree"
+          :props="{ expandTrigger: 'hover', value: 'id', label: 'name', emitPath: false }">
+        </el-cascader>
+      </el-col>
+      
+      <el-col :span="12">
+        <el-select v-model="form.t" size='small' multiple filterable allow-create default-first-option placeholder="标签">
+          <el-option v-for="item in tags" :key="item" :label="item" :value="item">
+          </el-option>
+        </el-select>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-input type="textarea" autosize placeholder="描述" v-model="form.d" clearable>
+      </el-input>
+    </el-row>
+
+    <div class="action">
+      <el-button size='small' @click="cancel">取消</el-button>
+      <el-button size='small' type="primary" @click="add">添加</el-button>
+    </div>
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/element.js"></script>
+<script src="./js/util.js"></script>
+<script src="./js/popup.js"></script>
+
+</html>
